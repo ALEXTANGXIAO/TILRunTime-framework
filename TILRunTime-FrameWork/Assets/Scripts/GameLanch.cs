@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
 public class GameLanch : UnitySingleton<GameLanch>
 {
-    public const string url = "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/1/";
+    private string url = "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/1/"; //https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/OnlineParam.json
 
-    public string dllversion = "/1/";
+    private string dllversion;
 
     public override void Awake()
     {
@@ -32,60 +33,79 @@ public class GameLanch : UnitySingleton<GameLanch>
 
         //dll-》二进制从ab包里一起加载
 
-        //UnityWebRequest <= WWW
-        //UnityWebRequest unityWebRequest = new UnityWebRequest(url + "HotFix_Project.dll");
-        UnityWebRequest unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
+#if UNITY_ANDROID
+                UnityWebRequest unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.dll");
+#else
+        UnityWebRequest unityWebRequest = new UnityWebRequest(url + "HotFix_Project.dll");
+        //UnityWebRequest unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
+#endif
         unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
         yield return unityWebRequest.SendWebRequest();
         while (!unityWebRequest.isDone)
             yield return null;
-        if(!string.IsNullOrEmpty(unityWebRequest.error))
+        if (!string.IsNullOrEmpty(unityWebRequest.error))
             UnityEngine.Debug.LogError(unityWebRequest.error);
-        byte[] a = unityWebRequest.downloadHandler.data;
+        byte[] dll = unityWebRequest.downloadHandler.data;
         unityWebRequest.Dispose();
 
+
+        /*
 #if UNITY_ANDROID
-        WWW www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.dll");
+        UnityWebRequest unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.dll");
 #else
-        WWW www = new WWW("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
-        //WWW www = new WWW(url + "HotFix_Project.dll");
+        UnityWebRequest unityWebRequest = new UnityWebRequest(url + "HotFix_Project.dll",UnityWebRequest.kHttpVerbGET);
+        //UnityWebRequest unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
 #endif
-        while (!www.isDone)
+        //var uwr = new UnityWebRequest("https://unity3d.com/", UnityWebRequest.kHttpVerbGET);
+        string path = (Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
+        unityWebRequest.downloadHandler = new DownloadHandlerFile(path);
+
+        yield return unityWebRequest.SendWebRequest();
+        while (!unityWebRequest.isDone)
             yield return null;
-        if (!string.IsNullOrEmpty(www.error))
-            UnityEngine.Debug.LogError(www.error);
-        byte[] dll = www.bytes;
-        www.Dispose();
+        if (!string.IsNullOrEmpty(unityWebRequest.error))
+        {
+            UnityEngine.Debug.LogError(unityWebRequest.error);
+            Debug.Log("File successfully downloaded and saved to " + path);
+            yield return null;
+        }
+
+        unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
+        unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+        yield return unityWebRequest.SendWebRequest();
+        while (!unityWebRequest.isDone)
+            yield return null;
+        if (!string.IsNullOrEmpty(unityWebRequest.error))
+            UnityEngine.Debug.LogError(unityWebRequest.error);
+
+
+        byte[] dll = unityWebRequest.downloadHandler.data;
+        unityWebRequest.Dispose();
+        */
+
+
 
         //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
 #if UNITY_ANDROID
-        www = new WWW(Application.streamingAssetsPath + "/HotFix_Project.pdb");
+        unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.pdb");
 #else
-        www = new WWW("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.pdb");
-        //www = new WWW(url + "HotFix_Project.pdb");
+        unityWebRequest = new UnityWebRequest(url + "HotFix_Project.pdb");
+        //unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.pdb");
 #endif
-        while (!www.isDone)
+        unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+        yield return unityWebRequest.SendWebRequest();
+        while (!unityWebRequest.isDone)
             yield return null;
-        if (!string.IsNullOrEmpty(www.error))
-            UnityEngine.Debug.LogError(www.error);
-        byte[] pdb = www.bytes;
+        if (!string.IsNullOrEmpty(unityWebRequest.error))
+            UnityEngine.Debug.LogError(unityWebRequest.error);
+        byte[] pdb = unityWebRequest.downloadHandler.data;
 
-        www.Dispose();
+        unityWebRequest.Dispose();
 
         ILRunTimeManager.Instance.LoadHotFixAssembly(dll,pdb);
 
         ILRunTimeManager.Instance.EnterGame();
 
         yield break;
-    }
-
-    private void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
     }
 }

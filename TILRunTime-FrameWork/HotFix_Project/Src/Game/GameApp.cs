@@ -19,7 +19,7 @@ namespace HotFix_Project
             //GameObject map = GameObject.Instantiate(mapPrefab);
 
             //释放UI
-            UIManager.Instace.ShowUI("Image");
+            UIManager.Instance.ShowUI("LoadingUI");
         }
     }
 }

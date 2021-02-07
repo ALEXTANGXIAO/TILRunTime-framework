@@ -14,3 +14,4 @@ D:\UnityWorkSpace\TILRuntime\TILRunTime-FrameWork\Assets\StreamingAssets\Hotfix\
 D:\UnityWorkSpace\TILRuntime\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.csproj.CoreCompileInputs.cache
 D:\UnityWorkSpace\TILRuntime\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.dll
 D:\UnityWorkSpace\TILRuntime\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.pdb
+D:\UnityWorkSpace\TILRuntime\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.csprojAssemblyReference.cache

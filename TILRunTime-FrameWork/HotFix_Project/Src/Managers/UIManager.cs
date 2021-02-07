@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace HotFix_Project
 {
-    public class UIManager
+    public class UIManager : TSingleton<UIManager>
     {
-        public static UIManager Instace = new UIManager();
         private Canvas canvas = null;
 
         public void Init()
         {
-            this.canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+            this.canvas = GameObject.Find("UICamera/Canvas").GetComponent<Canvas>();
+            UnityEngine.Object.DontDestroyOnLoad(this.canvas.gameObject);
         }
 
         public void ShowUI(string url)

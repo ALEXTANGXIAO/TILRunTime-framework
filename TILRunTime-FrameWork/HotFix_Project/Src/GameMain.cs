@@ -8,12 +8,12 @@ namespace HotFix_Project
     {
         public static void Init()
         {
-            Debug.LogError("Init 云端 Successfully");
+            Debug.LogError("Init bversion Successfully");
             //初始化热更项目框架：自定义事件，事件通知
             //End
 
             //EnterGame
-            UIManager.Instace.Init();
+            UIManager.Instance.Init();
             GameApp.Instance.Init();
         }
 
