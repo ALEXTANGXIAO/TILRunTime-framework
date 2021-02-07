@@ -1,0 +1,16 @@
+D:\UnityWorkSpace\TILRuntime\RunTime\Assets\3rd\Samples\ILRuntime\1.6.6\Demo\HotFix_Project~\obj\Debug\HotFix_Project.csproj.CoreCompileInputs.cache
+D:\UnityWorkSpace\TILRuntime\RunTime\Assets\3rd\StreamingAssets\HotFix_Project.dll
+D:\UnityWorkSpace\TILRuntime\RunTime\Assets\3rd\StreamingAssets\HotFix_Project.pdb
+D:\UnityWorkSpace\TILRuntime\RunTime\Assets\3rd\Samples\ILRuntime\1.6.6\Demo\HotFix_Project~\obj\Debug\HotFix_Project.dll
+D:\UnityWorkSpace\TILRuntime\RunTime\Assets\3rd\Samples\ILRuntime\1.6.6\Demo\HotFix_Project~\obj\Debug\HotFix_Project.pdb
+C:\Users\dmlt\Downloads\TILRunTime-FrameWork\HotFix_Project~\obj\Debug\HotFix_Project.dll
+C:\Users\dmlt\Downloads\TILRunTime-FrameWork\HotFix_Project~\obj\Debug\HotFix_Project.pdb
+C:\Users\dmlt\Downloads\TILRunTime-FrameWork\Assets\StreamingAssets\Hotfix\HotFix_Project.dll
+C:\Users\dmlt\Downloads\TILRunTime-FrameWork\Assets\StreamingAssets\Hotfix\HotFix_Project.pdb
+C:\Users\dmlt\Downloads\TILRunTime-FrameWork\HotFix_Project~\obj\Debug\HotFix_Project.csproj.CoreCompileInputs.cache
+C:\Users\dmlt\Downloads\TILRunTime-FrameWork\HotFix_Project~\obj\Debug\HotFix_Project.csprojAssemblyReference.cache
+D:\UnityWorkSpace\TILRuntime\TILRunTime-FrameWork\Assets\StreamingAssets\Hotfix\HotFix_Project.dll
+D:\UnityWorkSpace\TILRuntime\TILRunTime-FrameWork\Assets\StreamingAssets\Hotfix\HotFix_Project.pdb
+D:\UnityWorkSpace\TILRuntime\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.csproj.CoreCompileInputs.cache
+D:\UnityWorkSpace\TILRuntime\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.dll
+D:\UnityWorkSpace\TILRuntime\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.pdb
