@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class GameLanch : UnitySingleton<GameLanch>
 {
-    private string url = "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/dll/"; //https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/OnlineParam.json
+    private string url = "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/dll/";
 
     public override void Awake()
     {
@@ -17,10 +17,12 @@ public class GameLanch : UnitySingleton<GameLanch>
         this.gameObject.AddComponent<ResMgr>();
         this.gameObject.AddComponent<ILRunTimeManager>();
         this.gameObject.AddComponent<OnlineConfig>();
-        //EndInit
+        //EndInit-FrameWork
+
+        //InitLoadingUI
+        InitLoadingUI();
 
         this.CheckOnlineConfig();
-        //this.StartCoroutine(this.CheckHotUpdate());
     }
 
     private void CheckOnlineConfig()
@@ -33,7 +35,7 @@ public class GameLanch : UnitySingleton<GameLanch>
         UnityWebRequest unityWebRequest;
         byte[] dll;
         byte[] pdb;
-        //1.检查版本
+        
         if (!Checkdll(OnlineConfig.codeVersion))
         {
             Debug.LogError("需要更新:" + OnlineConfig.codeVersion);
@@ -57,12 +59,16 @@ public class GameLanch : UnitySingleton<GameLanch>
             unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/" + OnlineConfig.codeVersion);
 #endif
             unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+            
             yield return unityWebRequest.SendWebRequest();
             while (!unityWebRequest.isDone)
+            {
+                //LoadingUI.SetProgressBar(unityWebRequest.downloadProgress); //=》DOWNLOAD PROGRSS
                 yield return null;
+            }
+            //LoadingUI.SetProgressBar(unityWebRequest.downloadProgress); //=》DOWNLOAD PROGRSS
             if (!string.IsNullOrEmpty(unityWebRequest.error))
                 UnityEngine.Debug.LogError(unityWebRequest.error);
-
 
             dll = unityWebRequest.downloadHandler.data;
             unityWebRequest.Dispose();
@@ -75,6 +81,7 @@ public class GameLanch : UnitySingleton<GameLanch>
             unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.pdb");
 #endif
             unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+
             yield return unityWebRequest.SendWebRequest();
             while (!unityWebRequest.isDone)
                 yield return null;
@@ -99,9 +106,14 @@ public class GameLanch : UnitySingleton<GameLanch>
             unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/" + OnlineConfig.codeVersion);
 #endif
             unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+
             yield return unityWebRequest.SendWebRequest();
             while (!unityWebRequest.isDone)
+            {
+                //LoadingUI.SetProgressBar(unityWebRequest.downloadProgress); //=》DOWNLOAD PROGRSS
                 yield return null;
+            }
+            //LoadingUI.SetProgressBar(unityWebRequest.downloadProgress); //=》DOWNLOAD PROGRSS
             if (!string.IsNullOrEmpty(unityWebRequest.error))
                 UnityEngine.Debug.LogError(unityWebRequest.error);
             dll = unityWebRequest.downloadHandler.data;
@@ -124,14 +136,12 @@ public class GameLanch : UnitySingleton<GameLanch>
             pdb = unityWebRequest.downloadHandler.data;
 
             unityWebRequest.Dispose();
-
-            //----------------------------------------------------加载Game------------------------------------------------------------------//
-            ILRunTimeManager.Instance.LoadHotFixAssembly(dll, null);
-
-            ILRunTimeManager.Instance.EnterGame();
-            //----------------------------------------------------End-----------------------------------------------------------------------//
         }
+        //----------------------------------------------------加载Game------------------------------------------------------------------//
+        ILRunTimeManager.Instance.LoadHotFixAssembly(dll, null);
 
+        ILRunTimeManager.Instance.EnterGame();
+        //----------------------------------------------------End-----------------------------------------------------------------------//
         yield break;
     }
 
@@ -163,5 +173,13 @@ public class GameLanch : UnitySingleton<GameLanch>
             }
         }
         return false;
+    }
+
+    private void InitLoadingUI()
+    {
+        GameObject Loading = ResMgr.Instance.GetAssetCache<GameObject>("UI/LoadingUI.prefab");
+        GameObject uiView = GameObject.Instantiate(Loading);
+        uiView.transform.SetParent(GameObject.Find("UICamera/Canvas").GetComponent<Canvas>().transform, false);
+        uiView.name = Loading.name;
     }
 }

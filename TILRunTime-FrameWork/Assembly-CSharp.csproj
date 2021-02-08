@@ -96,7 +96,7 @@
     <Compile Include="Assets\Scripts\Managers\ILRunTimeManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ResMgr.cs" />
     <Compile Include="Assets\Scripts\OnlineConfig\OnlineConfig.cs" />
-    <Compile Include="Assets\Scripts\UGUI\Loading.cs" />
+    <Compile Include="Assets\Scripts\UGUI\LoadingUI.cs" />
     <Compile Include="Assets\Scripts\Utils\MMMaths.cs" />
     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
     <None Include="Assets\Resources\Fonts\Lato\OFL.txt" />

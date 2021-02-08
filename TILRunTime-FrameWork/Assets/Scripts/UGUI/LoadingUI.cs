@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Loading : MonoBehaviour//UnitySingleton<Loading>
+public class LoadingUI : MonoBehaviour
 {
     [Header("GameObjects")]
     public Text LoadingText;
@@ -27,5 +27,10 @@ public class Loading : MonoBehaviour//UnitySingleton<Loading>
     public static void SetProgressBar(float value) 
     {
         progressBarImage.fillAmount = value;
+    }
+
+    public void SetActive(bool value)
+    {
+        this.gameObject.SetActive(value);
     }
 }

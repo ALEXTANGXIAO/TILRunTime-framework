@@ -25,7 +25,7 @@ namespace HotFix_Project
 
         public void RemoveUI(string url)
         {
-
+            
         }
     }
 }
