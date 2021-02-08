@@ -47,6 +47,10 @@ public class OnlineConfig :UnitySingleton<OnlineConfig>
                 assetBundleVersion = AssetBundleVersion.ToString();
             }
         }
-        callback();
+
+        if (callback != null)
+        {
+            callback();
+        }
     }
 }

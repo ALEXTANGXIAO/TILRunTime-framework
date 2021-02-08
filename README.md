@@ -9,4 +9,4 @@ TILRunTime-framework iOS、Android、Switch、PC等全平台热更方案
 
 ![Build status](http://106.52.118.65:1000/src/github.png)
 
-![Build status](http://106.52.118.65:1000/src/TILQR.png)
+<!-- ![Build status](http://106.52.118.65:1000/src/TILQR.png) -->

@@ -9,6 +9,8 @@ public class GameLanch : UnitySingleton<GameLanch>
 {
     private string url = "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/dll/";
 
+    public bool IsEditorMode;
+
     public override void Awake()
     {
         base.Awake();
@@ -177,7 +179,7 @@ public class GameLanch : UnitySingleton<GameLanch>
 
     private void InitLoadingUI()
     {
-        GameObject Loading = ResMgr.Instance.GetAssetCache<GameObject>("UI/LoadingUI.prefab");
+        GameObject Loading = ResMgr.Instance.GetAssetCache<GameObject>("LoadingUI.prefab");
         GameObject uiView = GameObject.Instantiate(Loading);
         uiView.transform.SetParent(GameObject.Find("UICamera/Canvas").GetComponent<Canvas>().transform, false);
         uiView.name = Loading.name;

@@ -7,13 +7,13 @@ public class ResMgr : UnitySingleton<ResMgr>
     public override void Awake()
     {
         base.Awake();
-        //this.gameObject.AddComponent<>AssetBundleManager>;
+        this.gameObject.AddComponent<AssetBundleManager>();
     }
 
     public T GetAssetCache<T>(string name)where T : UnityEngine.Object
     {
 #if UNITY_EDITOR
-        //if(AssBundleConfig.IsEditorMode)
+        if(GameLanch.Instance.IsEditorMode)
         {
             string path = "Assets/AssetsPackage/" + name;
             Debug.Log("PATH = " + path);
@@ -21,7 +21,6 @@ public class ResMgr : UnitySingleton<ResMgr>
             return target as T;
         }
 #endif
-        //return AssetBundleManager.Instance.GetAssetCache(name) as T;
-        return null;
+        return AssetBundleManager.Instance.GetAssetCache<T>(name) as T;
     }
 }
