@@ -16,7 +16,7 @@ class Singleton<T> where T : new()
             if (null == _instance)
             {
                 _instance = new T();
-                Debug.Log(_instance != null);
+                //Debug.Log(_instance != null);
             }
             return _instance;
         }

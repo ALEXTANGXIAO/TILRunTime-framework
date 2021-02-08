@@ -18,6 +18,7 @@ public class GameLanch : UnitySingleton<GameLanch>
         //Init初始化游戏框架 ：资源框架，网络管理，日志管理....
         this.gameObject.AddComponent<ResMgr>();
         this.gameObject.AddComponent<ILRunTimeManager>();
+        this.gameObject.AddComponent<OnlineConfig>();
         //EndInit
 
         this.StartCoroutine(this.CheckHotUpdate());
@@ -26,12 +27,21 @@ public class GameLanch : UnitySingleton<GameLanch>
     IEnumerator CheckHotUpdate()
     {
         //1.检查版本--》
+        OnlineConfig.Instance.GetOnlineConfig();
+        Checkdll(OnlineConfig.codeVersion);
+        if (!Checkdll(OnlineConfig.codeVersion))
+        {
+            //下载
+        }
+        else
+        {
 
-        //2.下载万场后从下载路径下下载
+        }
 
-        //3.若下载路径没有，从streamingAssets下载
+        //2.下载完后从下载路径加载
 
-        //dll-》二进制从ab包里一起加载
+        //3.若下载路径没有，从streamingAssets加载
+
 
 #if UNITY_ANDROID
                 UnityWebRequest unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.dll");
@@ -107,5 +117,28 @@ public class GameLanch : UnitySingleton<GameLanch>
         ILRunTimeManager.Instance.EnterGame();
 
         yield break;
+    }
+
+    private bool Checkdll(string dll)
+    {
+        var path = Application.streamingAssetsPath;
+        if (Directory.Exists(path))
+        {
+            DirectoryInfo direction = new DirectoryInfo(path);
+            FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
+            for (int i = 0; i < files.Length; i++)
+            {
+                if (files[i].Name.EndsWith(".meta"))
+                {
+                    continue;
+                }
+                //Debug.Log("Name : " + files[i].Name);
+                //Debug.Log("FullName : " + files[i].FullName);
+                //Debug.Log("DirectoryName : " + files[i].DirectoryName);
+                if (dll == files[i].Name)
+                    return true;
+            }
+        }
+        return false;
     }
 }

@@ -9,7 +9,9 @@
 /TILRunTime-FrameWork/[Bb]uilds/
 /TILRunTime-FrameWork/[Ll]ogs/
 /TILRunTime-FrameWork/[Mm]emoryCaptures/
-/TILRunTime-FrameWork/Temp
+/TILRunTime-FrameWork/Temp/
+/TILRunTime-FrameWork/Library/
+/TILRunTime-FrameWork/Logs/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 #!/[Aa]ssets/**/*.meta

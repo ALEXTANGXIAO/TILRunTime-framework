@@ -10,7 +10,8 @@ namespace HotFix_Project
         public void Init()
         {
             this.canvas = GameObject.Find("UICamera/Canvas").GetComponent<Canvas>();
-            UnityEngine.Object.DontDestroyOnLoad(this.canvas.gameObject);
+            GameObject root = GameObject.Find("UICamera");
+            UnityEngine.Object.DontDestroyOnLoad(root);
         }
 
         public void ShowUI(string url)
