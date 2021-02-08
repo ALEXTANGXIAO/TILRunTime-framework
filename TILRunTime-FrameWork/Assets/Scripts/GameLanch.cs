@@ -9,8 +9,6 @@ public class GameLanch : UnitySingleton<GameLanch>
 {
     private string url = "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/dll/"; //https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/OnlineParam.json
 
-    private string dllversion;
-
     public override void Awake()
     {
         base.Awake();
@@ -39,12 +37,8 @@ public class GameLanch : UnitySingleton<GameLanch>
         if (!Checkdll(OnlineConfig.codeVersion))
         {
             Debug.LogError("需要更新:" + OnlineConfig.codeVersion);
-            //-----------------------------------------------------------------------------------------------------------------------------//
-#if UNITY_ANDROID
-            unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.dll");
-#else
+            //------------------------------------------------热更新下载DLL--------------------------------------------------//
             unityWebRequest = new UnityWebRequest(url + OnlineConfig.codeVersion, UnityWebRequest.kHttpVerbGET);
-#endif
             string path = (Application.streamingAssetsPath + "/Hotfix/"+ OnlineConfig.codeVersion);
             unityWebRequest.downloadHandler = new DownloadHandlerFile(path);
 
@@ -57,8 +51,11 @@ public class GameLanch : UnitySingleton<GameLanch>
                 Debug.Log("File successfully downloaded and saved to " + path);
                 yield return null;
             }
-
+#if UNITY_ANDROID
+            unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/Hotfix/" + OnlineConfig.codeVersion);
+#else
             unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/" + OnlineConfig.codeVersion);
+#endif
             unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
             yield return unityWebRequest.SendWebRequest();
             while (!unityWebRequest.isDone)

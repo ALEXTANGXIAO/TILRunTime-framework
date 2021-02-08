@@ -91,7 +91,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5148640201863576997
 RectTransform:
   m_ObjectHideFlags: 0
@@ -144,7 +144,6 @@ MonoBehaviour:
   LoadingProgressBar: {fileID: 5148640203136198601}
   LoadingAnimation: {fileID: 5148640202369595163}
   LoadingCompleteAnimation: {fileID: 5148640202618955056}
-  progressBarImage: {fileID: 0}
 --- !u!1 &5148640201907261986
 GameObject:
   m_ObjectHideFlags: 0
