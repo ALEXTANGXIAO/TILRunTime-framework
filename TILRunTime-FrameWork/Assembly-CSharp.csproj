@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{A6D272E3-0CD4-C189-2315-E1BECAE6B239}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -100,7 +99,6 @@
     <Compile Include="Assets\Scripts\UGUI\Loading.cs" />
     <Compile Include="Assets\Scripts\Utils\MMMaths.cs" />
     <Compile Include="Assets\Scripts\Utils\Singleton.cs" />
-    <None Include=".editorconfig" />
     <None Include="Assets\Resources\Fonts\Lato\OFL.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.18f1c1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -288,6 +286,9 @@
     <Reference Include="HotFix_Project">
       <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Assets/3rd/StreamingAssets/HotFix_Project.dll</HintPath>
     </Reference>
+    <Reference Include="LitJson">
+      <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Assets/Resources/Json/LitJson.dll</HintPath>
+    </Reference>
     <Reference Include="ILRuntim.Mono.Cecil">
       <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Library/PackageCache/com.ourpalm.ilruntime@1.6.6/Plugins/ILRuntim.Mono.Cecil.dll</HintPath>
     </Reference>
@@ -296,9 +297,6 @@
     </Reference>
     <Reference Include="ILRuntime.Mono.Cecil.Pdb">
       <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Library/PackageCache/com.ourpalm.ilruntime@1.6.6/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="LitJson">
-      <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Assets/Resources/Json/LitJson.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.18f1c1/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
@@ -676,8 +674,7 @@
       <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-  </ItemGroup>
+  <ItemGroup></ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

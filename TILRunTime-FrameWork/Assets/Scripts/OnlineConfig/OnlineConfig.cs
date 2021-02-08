@@ -2,7 +2,7 @@
 using UnityEngine;
 using LitJson;
 using UnityEngine.Networking;
-
+using System;
 
 public class OnlineConfig :UnitySingleton<OnlineConfig>
 {
@@ -16,15 +16,15 @@ public class OnlineConfig :UnitySingleton<OnlineConfig>
 
     void Start()
     {
-        StartCoroutine(_GetOnlineConfig());
+        //StartCoroutine(_GetOnlineConfig());
     }
 
-    public void GetOnlineConfig()
+    public void GetOnlineConfig(Action callback)
     {
-        StartCoroutine(_GetOnlineConfig());
+        StartCoroutine(_GetOnlineConfig(callback));
     }
 
-    IEnumerator _GetOnlineConfig()
+    IEnumerator _GetOnlineConfig(Action callback)
     {
         UnityWebRequest unityWebRequest = UnityWebRequest.Get(onlineParamUrl);
         yield return unityWebRequest.SendWebRequest();
@@ -35,7 +35,7 @@ public class OnlineConfig :UnitySingleton<OnlineConfig>
         }
         else
         {
-            Debug.Log(unityWebRequest.downloadHandler.text);
+            //Debug.Log(unityWebRequest.downloadHandler.text);
             OnlineParamString = unityWebRequest.downloadHandler.text;
             JsonData jsonData = JsonMapper.ToObject(OnlineParamString);
             if (jsonData != null)
@@ -47,5 +47,6 @@ public class OnlineConfig :UnitySingleton<OnlineConfig>
                 assetBundleVersion = AssetBundleVersion.ToString();
             }
         }
+        callback();
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 public class GameLanch : UnitySingleton<GameLanch>
 {
-    private string url = "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/1/"; //https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/OnlineParam.json
+    private string url = "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/dll/"; //https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/OnlineParam.json
 
     private string dllversion;
 
@@ -21,102 +21,126 @@ public class GameLanch : UnitySingleton<GameLanch>
         this.gameObject.AddComponent<OnlineConfig>();
         //EndInit
 
-        this.StartCoroutine(this.CheckHotUpdate());
+        this.CheckOnlineConfig();
+        //this.StartCoroutine(this.CheckHotUpdate());
+    }
+
+    private void CheckOnlineConfig()
+    {
+        OnlineConfig.Instance.GetOnlineConfig(() => { this.StartCoroutine(this.CheckHotUpdate()); });
     }
 
     IEnumerator CheckHotUpdate()
     {
-        //1.检查版本--》
-        OnlineConfig.Instance.GetOnlineConfig();
-        Checkdll(OnlineConfig.codeVersion);
+        UnityWebRequest unityWebRequest;
+        byte[] dll;
+        byte[] pdb;
+        //1.检查版本
         if (!Checkdll(OnlineConfig.codeVersion))
         {
-            //下载
+            Debug.LogError("需要更新:" + OnlineConfig.codeVersion);
+            //-----------------------------------------------------------------------------------------------------------------------------//
+#if UNITY_ANDROID
+            unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.dll");
+#else
+            unityWebRequest = new UnityWebRequest(url + OnlineConfig.codeVersion, UnityWebRequest.kHttpVerbGET);
+#endif
+            string path = (Application.streamingAssetsPath + "/Hotfix/"+ OnlineConfig.codeVersion);
+            unityWebRequest.downloadHandler = new DownloadHandlerFile(path);
+
+            yield return unityWebRequest.SendWebRequest();
+            while (!unityWebRequest.isDone)
+                yield return null;
+            if (!string.IsNullOrEmpty(unityWebRequest.error))
+            {
+                UnityEngine.Debug.LogError(unityWebRequest.error);
+                Debug.Log("File successfully downloaded and saved to " + path);
+                yield return null;
+            }
+
+            unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/" + OnlineConfig.codeVersion);
+            unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+            yield return unityWebRequest.SendWebRequest();
+            while (!unityWebRequest.isDone)
+                yield return null;
+            if (!string.IsNullOrEmpty(unityWebRequest.error))
+                UnityEngine.Debug.LogError(unityWebRequest.error);
+
+
+            dll = unityWebRequest.downloadHandler.data;
+            unityWebRequest.Dispose();
+            //-----------------------------------------------------------------------------------------------------------------------//
+            //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
+#if UNITY_ANDROID
+                unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.pdb");
+#else
+            //unityWebRequest = new UnityWebRequest(url + "HotFix_Project.pdb");
+            unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.pdb");
+#endif
+            unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+            yield return unityWebRequest.SendWebRequest();
+            while (!unityWebRequest.isDone)
+                yield return null;
+            if (!string.IsNullOrEmpty(unityWebRequest.error))
+                UnityEngine.Debug.LogError(unityWebRequest.error);
+            pdb = unityWebRequest.downloadHandler.data;
+
+            unityWebRequest.Dispose();
+            //----------------------------------------------------加载Game------------------------------------------------------------------//
+            ILRunTimeManager.Instance.LoadHotFixAssembly(dll, null);
+
+            ILRunTimeManager.Instance.EnterGame();
+            //----------------------------------------------------End-----------------------------------------------------------------------//
         }
         else
         {
+            Debug.LogError("代码版本正确，不用更新:" + OnlineConfig.codeVersion);
+            //----------------------------------------------------加载DLL-------------------------------------------------------------------//
+#if UNITY_ANDROID
+            unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/Hotfix/" + OnlineConfig.codeVersion);
+#else
+            unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/" + OnlineConfig.codeVersion);
+#endif
+            unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+            yield return unityWebRequest.SendWebRequest();
+            while (!unityWebRequest.isDone)
+                yield return null;
+            if (!string.IsNullOrEmpty(unityWebRequest.error))
+                UnityEngine.Debug.LogError(unityWebRequest.error);
+            dll = unityWebRequest.downloadHandler.data;
+            unityWebRequest.Dispose();
 
+            //----------------------------------------------------加载PDB-------------------------------------------------------------------//
+            //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
+#if UNITY_ANDROID
+                unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.pdb");
+#else
+            //unityWebRequest = new UnityWebRequest(url + "HotFix_Project.pdb");
+            unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.pdb");
+#endif
+            unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+            yield return unityWebRequest.SendWebRequest();
+            while (!unityWebRequest.isDone)
+                yield return null;
+            if (!string.IsNullOrEmpty(unityWebRequest.error))
+                UnityEngine.Debug.LogError(unityWebRequest.error);
+            pdb = unityWebRequest.downloadHandler.data;
+
+            unityWebRequest.Dispose();
+
+            //----------------------------------------------------加载Game------------------------------------------------------------------//
+            ILRunTimeManager.Instance.LoadHotFixAssembly(dll, null);
+
+            ILRunTimeManager.Instance.EnterGame();
+            //----------------------------------------------------End-----------------------------------------------------------------------//
         }
-
-        //2.下载完后从下载路径加载
-
-        //3.若下载路径没有，从streamingAssets加载
-
-
-#if UNITY_ANDROID
-                UnityWebRequest unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.dll");
-#else
-        //UnityWebRequest unityWebRequest = new UnityWebRequest(url + "HotFix_Project.dll");
-        UnityWebRequest unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
-#endif
-        unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
-        yield return unityWebRequest.SendWebRequest();
-        while (!unityWebRequest.isDone)
-            yield return null;
-        if (!string.IsNullOrEmpty(unityWebRequest.error))
-            UnityEngine.Debug.LogError(unityWebRequest.error);
-        byte[] dll = unityWebRequest.downloadHandler.data;
-        unityWebRequest.Dispose();
-
-
-        /*
-#if UNITY_ANDROID
-        UnityWebRequest unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.dll");
-#else
-        UnityWebRequest unityWebRequest = new UnityWebRequest(url + "HotFix_Project.dll",UnityWebRequest.kHttpVerbGET);
-        //UnityWebRequest unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
-#endif
-        //var uwr = new UnityWebRequest("https://unity3d.com/", UnityWebRequest.kHttpVerbGET);
-        string path = (Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
-        unityWebRequest.downloadHandler = new DownloadHandlerFile(path);
-
-        yield return unityWebRequest.SendWebRequest();
-        while (!unityWebRequest.isDone)
-            yield return null;
-        if (!string.IsNullOrEmpty(unityWebRequest.error))
-        {
-            UnityEngine.Debug.LogError(unityWebRequest.error);
-            Debug.Log("File successfully downloaded and saved to " + path);
-            yield return null;
-        }
-
-        unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
-        unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
-        yield return unityWebRequest.SendWebRequest();
-        while (!unityWebRequest.isDone)
-            yield return null;
-        if (!string.IsNullOrEmpty(unityWebRequest.error))
-            UnityEngine.Debug.LogError(unityWebRequest.error);
-
-
-        byte[] dll = unityWebRequest.downloadHandler.data;
-        unityWebRequest.Dispose();
-        */
-
-
-
-        //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
-#if UNITY_ANDROID
-        unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.pdb");
-#else
-        //unityWebRequest = new UnityWebRequest(url + "HotFix_Project.pdb");
-        unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.pdb");
-#endif
-        unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
-        yield return unityWebRequest.SendWebRequest();
-        while (!unityWebRequest.isDone)
-            yield return null;
-        if (!string.IsNullOrEmpty(unityWebRequest.error))
-            UnityEngine.Debug.LogError(unityWebRequest.error);
-        byte[] pdb = unityWebRequest.downloadHandler.data;
-
-        unityWebRequest.Dispose();
-
-        ILRunTimeManager.Instance.LoadHotFixAssembly(dll,pdb);
-
-        ILRunTimeManager.Instance.EnterGame();
 
         yield break;
+    }
+
+    private void DownLoadDll()
+    {
+
     }
 
     private bool Checkdll(string dll)
@@ -136,7 +160,9 @@ public class GameLanch : UnitySingleton<GameLanch>
                 //Debug.Log("FullName : " + files[i].FullName);
                 //Debug.Log("DirectoryName : " + files[i].DirectoryName);
                 if (dll == files[i].Name)
+                {
                     return true;
+                }
             }
         }
         return false;

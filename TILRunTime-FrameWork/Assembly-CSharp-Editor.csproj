@@ -8,8 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{58AE15A2-15A9-64E3-712F-CB5C9AA9259D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -267,6 +266,9 @@
     <Reference Include="HotFix_Project">
       <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Assets/3rd/StreamingAssets/HotFix_Project.dll</HintPath>
     </Reference>
+    <Reference Include="LitJson">
+      <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Assets/Resources/Json/LitJson.dll</HintPath>
+    </Reference>
     <Reference Include="ILRuntim.Mono.Cecil">
       <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Library/PackageCache/com.ourpalm.ilruntime@1.6.6/Plugins/ILRuntim.Mono.Cecil.dll</HintPath>
     </Reference>
@@ -275,9 +277,6 @@
     </Reference>
     <Reference Include="ILRuntime.Mono.Cecil.Pdb">
       <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Library/PackageCache/com.ourpalm.ilruntime@1.6.6/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="LitJson">
-      <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Assets/Resources/Json/LitJson.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>E:/TILRunTime-framework/TILRunTime-FrameWork/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>

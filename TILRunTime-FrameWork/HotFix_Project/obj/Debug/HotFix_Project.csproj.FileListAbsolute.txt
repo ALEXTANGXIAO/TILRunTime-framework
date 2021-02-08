@@ -20,3 +20,4 @@ E:\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Pro
 E:\TILRunTime-framework\TILRunTime-FrameWork\Assets\StreamingAssets\Hotfix\HotFix_Project.dll
 E:\TILRunTime-framework\TILRunTime-FrameWork\Assets\StreamingAssets\Hotfix\HotFix_Project.pdb
 E:\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.pdb
+E:\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.csprojAssemblyReference.cache

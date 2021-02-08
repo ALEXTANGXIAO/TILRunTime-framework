@@ -22,13 +22,41 @@ public class ILRunTimeManager : UnitySingleton<ILRunTimeManager>
         this.appdomain = new ILRuntime.Runtime.Enviorment.AppDomain();
     }
 
+    /// <summary>
+    /// 开发环境pdb调试
+    /// </summary>
+    /// <param name="dll"></param>
+    /// <param name="pdb"></param>
     public void LoadHotFixAssembly(byte[] dll, byte[] pdb)
     {
         this.fs = new MemoryStream(dll);
-        this.p = new MemoryStream(pdb);
+        if (pdb != null)
+        {
+            this.p = new MemoryStream(pdb);
+        }
         try
         {
             appdomain.LoadAssembly(fs, p, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
+        }
+        catch
+        {
+            Debug.LogError("TILRunTIme加载热更DLL失败,请确保已经编译过Dll");
+            return;
+        }
+
+        this.InitializeILRuntime();
+    }
+
+    /// <summary>
+    /// 生成环境，不使用pdb
+    /// </summary>
+    /// <param name="dll"></param>
+    public void ProDuceLoadHotFixAssembly(byte[] dll)
+    {
+        this.fs = new MemoryStream(dll);
+        try
+        {
+            appdomain.LoadAssembly(fs, null, new ILRuntime.Mono.Cecil.Pdb.PdbReaderProvider());
         }
         catch
         {
