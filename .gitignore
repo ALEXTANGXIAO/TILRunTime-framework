@@ -10,7 +10,8 @@
 /TILRunTime-FrameWork/[Ll]ogs/
 /TILRunTime-FrameWork/[Mm]emoryCaptures/
 /TILRunTime-FrameWork/Temp/
-/TILRunTime-FrameWork/Library/
+TILRunTime-FrameWork/Library/
+/TILRunTime-FrameWork/Library/PackageCache/
 /TILRunTime-FrameWork/Logs/
 /Back/
 
