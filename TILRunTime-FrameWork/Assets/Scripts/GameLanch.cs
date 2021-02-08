@@ -36,8 +36,8 @@ public class GameLanch : UnitySingleton<GameLanch>
 #if UNITY_ANDROID
                 UnityWebRequest unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.dll");
 #else
-        UnityWebRequest unityWebRequest = new UnityWebRequest(url + "HotFix_Project.dll");
-        //UnityWebRequest unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
+        //UnityWebRequest unityWebRequest = new UnityWebRequest(url + "HotFix_Project.dll");
+        UnityWebRequest unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.dll");
 #endif
         unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
         yield return unityWebRequest.SendWebRequest();
@@ -89,8 +89,8 @@ public class GameLanch : UnitySingleton<GameLanch>
 #if UNITY_ANDROID
         unityWebRequest = new UnityWebRequest(Application.streamingAssetsPath + "/HotFix_Project.pdb");
 #else
-        unityWebRequest = new UnityWebRequest(url + "HotFix_Project.pdb");
-        //unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.pdb");
+        //unityWebRequest = new UnityWebRequest(url + "HotFix_Project.pdb");
+        unityWebRequest = new UnityWebRequest("file:///" + Application.streamingAssetsPath + "/Hotfix/HotFix_Project.pdb");
 #endif
         unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
         yield return unityWebRequest.SendWebRequest();
