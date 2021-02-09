@@ -1,0 +1,12 @@
+TILRunTime-framework|https://github.com/ALEXTANGXIAO/TILRunTime-framework.git
+HTModuleManager|https://github.com/SaiTingHu/HTModuleManager.git
+HTFramework|https://github.com/SaiTingHu/HTFramework.git
+HTFrameworkAI|https://github.com/SaiTingHu/HTFrameworkAI.git
+HTFrameworkILHotfix|https://github.com/SaiTingHu/HTFrameworkILHotfix.git
+HTFrameworkXLua|https://github.com/SaiTingHu/HTFrameworkXLua.git
+HTFrameworkGameComponent|https://github.com/SaiTingHu/HTFrameworkGameComponent.git
+HTFrameworkDemo|https://github.com/SaiTingHu/HTFrameworkDemo.git
+Plugins/HT/HTEditorTool|https://github.com/SaiTingHu/HTEditorTool.git
+Plugins/HT/HTPostProcessing|https://github.com/SaiTingHu/HTPostProcessing.git
+Plugins/HT/InfiniteList|https://github.com/SaiTingHu/InfiniteList.git
+Plugins/HT/TextureProcessor|https://github.com/SaiTingHu/TextureProcessor.git

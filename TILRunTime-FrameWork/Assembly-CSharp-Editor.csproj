@@ -290,6 +290,9 @@
     <Reference Include="ILRuntime.Mono.Cecil.Pdb">
       <HintPath>D:/UnityWorkSpace/TILRunTime-framework/TILRunTime-FrameWork/Library/PackageCache/com.ourpalm.ilruntime@1.6.6/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
     </Reference>
+    <Reference Include="LibGit2Sharp">
+      <HintPath>D:/UnityWorkSpace/TILRunTime-framework/TILRunTime-FrameWork/Assets/Editor/ModuleManager/Lib/LibGit2Sharp.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>D:/UnityWorkSpace/TILRunTime-framework/TILRunTime-FrameWork/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
@@ -694,6 +697,10 @@
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{A6D272E3-0CD4-C189-2315-E1BECAE6B239}</Project>
       <Name>Assembly-CSharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="HT.ModuleManager.csproj">
+      <Project>{3D812D8A-0EB7-6A44-3A3C-2C5679B2BAA3}</Project>
+      <Name>HT.ModuleManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
