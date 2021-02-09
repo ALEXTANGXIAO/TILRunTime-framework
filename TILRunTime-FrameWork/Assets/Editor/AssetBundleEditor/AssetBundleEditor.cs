@@ -6,7 +6,7 @@ namespace AssetBundleManager.Editor
 {
     public class AssetBundleEditor : EditorWindow
     {
-        [MenuItem("AssetBundle/AssetBundle Editor %#O")]
+        [MenuItem("TFramework/AssetBundle Editor %#O")]
         private static void OpenAssetBundleWindow()
         {
             AssetBundleEditor ABEditor = GetWindow<AssetBundleEditor>("AssetBundles");
