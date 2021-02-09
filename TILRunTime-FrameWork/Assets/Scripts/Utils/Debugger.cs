@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.Profiling;
 
-public class Debugger : MonoBehaviour
+public class Debugger : MonoBehaviour 
 {
     /// <summary>
     /// 是否允许调试
@@ -32,7 +32,7 @@ public class Debugger : MonoBehaviour
     private int _frameNumber = 0;
     private float _lastShowFPSTime = 0f;
 
-    private void Start()
+    private void Start () 
     {
         if (AllowDebugging)
         {
@@ -278,7 +278,7 @@ public class Debugger : MonoBehaviour
             }
             GUILayout.EndHorizontal();
         }
-        #endregion
+#endregion
 
         #region system
         else if (_debugType == DebugType.System)
@@ -391,7 +391,7 @@ public class Debugger : MonoBehaviour
             }
             GUILayout.EndHorizontal();
         }
-        #endregion
+#endregion
     }
     private void ShrinkGUIWindow(int windowId)
     {
