@@ -92,11 +92,6 @@ public class GameLanch : UnitySingleton<GameLanch>
             pdb = unityWebRequest.downloadHandler.data;
 
             unityWebRequest.Dispose();
-            //----------------------------------------------------加载Game------------------------------------------------------------------//
-            ILRunTimeManager.Instance.LoadHotFixAssembly(dll, null);
-
-            ILRunTimeManager.Instance.EnterGame();
-            //----------------------------------------------------End-----------------------------------------------------------------------//
         }
         else
         {
@@ -144,12 +139,19 @@ public class GameLanch : UnitySingleton<GameLanch>
 
         ILRunTimeManager.Instance.EnterGame();
         //----------------------------------------------------End-----------------------------------------------------------------------//
+
+        //StartCoroutine(AssetBundleManager.Instance.DownLoadMainAssetBundel(() => {this.LoadGame(dll);}));
+
         yield break;
     }
 
-    private void DownLoadDll()
+    private void LoadGame(byte[] dll)
     {
+        //----------------------------------------------------加载Game------------------------------------------------------------------//
+        ILRunTimeManager.Instance.LoadHotFixAssembly(dll, null);
 
+        ILRunTimeManager.Instance.EnterGame();
+        //----------------------------------------------------End-----------------------------------------------------------------------//
     }
 
     private bool Checkdll(string dll)

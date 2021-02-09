@@ -50,10 +50,44 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
         return target as T;
     }
 
-    IEnumerator DownLoadAssetBundle(string bundleName,Action callback)
+    public IEnumerator DownLoadMainAssetBundel(Action callback = null)
+    {
+        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url + OnlineConfig.assetBundleVersion + "/AssetsBundle");
+        string path = (Application.streamingAssetsPath + "/AssetsBundle/" + "AssetsBundle");
+        request.downloadHandler = new DownloadHandlerFile(path);
+
+        yield return request.SendWebRequest();
+
+        while (request.isHttpError)
+        {
+            Debug.LogError("ERROR:" + request.error);
+            yield return null;
+        }
+        while (!request.isDone)
+        {
+            LoadingUI.SetProgressBar(request.downloadProgress); //=》DOWNLOAD PROGRSS
+            yield return null;
+        }
+        LoadingUI.SetProgressBar(request.downloadProgress);     //=》DOWNLOAD PROGRSS
+
+        AssetBundle ab = DownloadHandlerAssetBundle.GetContent(request);
+
+        AssetBundleManifest manifest = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+
+        string[] names = manifest.GetAllAssetBundles();
+        for (int i = 0; i < names.Length; i++)
+        {
+            Debug.Log(Application.streamingAssetsPath + "/AssetsBundle/" + names[i]);
+            StartCoroutine(DownLoadAssetBundle(names[i], callback));
+        }
+    }
+
+    public IEnumerator DownLoadAssetBundle(string bundleName,Action callback = null)
     {
 
         UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url + OnlineConfig.assetBundleVersion + "/");
+        string path = (Application.streamingAssetsPath + "/AssetsBundle/" + bundleName);
+        request.downloadHandler = new DownloadHandlerFile(path);
 
         yield return request.SendWebRequest();
 

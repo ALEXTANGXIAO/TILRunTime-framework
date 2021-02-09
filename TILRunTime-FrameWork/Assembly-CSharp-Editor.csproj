@@ -67,7 +67,13 @@
     <Compile Include="Assets\3rd\Samples\ILRuntime\1.6.6\Demo\Editor\ILRuntimeCrossBinding.cs" />
     <Compile Include="Assets\3rd\Samples\ILRuntime\1.6.6\Demo\Editor\ILRuntimeMenu.cs" />
     <Compile Include="Assets\3rd\Samples\ILRuntime\1.6.6\Demo\Scripts\Examples\08_MonoBehaviour\Editor\MonoBehaviourAdapterEditor.cs" />
+    <Compile Include="Assets\Editor\AssetBundle\AssetBundleEditor.cs" />
     <Compile Include="Assets\Editor\AssetBundle\BuildAssetBundle.cs" />
+    <Compile Include="Assets\Editor\AssetBundleEditor\AssetBundleBuildInfo.cs" />
+    <Compile Include="Assets\Editor\AssetBundleEditor\AssetBundleEditor.cs" />
+    <Compile Include="Assets\Editor\AssetBundleEditor\AssetBundleInfo.cs" />
+    <Compile Include="Assets\Editor\AssetBundleEditor\AssetBundleTool.cs" />
+    <Compile Include="Assets\Editor\AssetBundleEditor\AssetInfo.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.12f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
