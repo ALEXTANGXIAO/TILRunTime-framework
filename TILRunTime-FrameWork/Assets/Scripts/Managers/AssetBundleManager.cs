@@ -235,7 +235,7 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
 
     public T GetAssetCache<T>(string resName) where T : UnityEngine.Object
     {
-        Debug.Log("LOAD BY ASSETSBUNDLE MANAGER" + resName);
+        Debug.Log("LOAD BY ASSETSBUNDLE MANAGER:" + resName);
         var abName = "ui";
         
         AssetBundle ab = AssetBundle.LoadFromFile(PathUrl + abName);
@@ -265,22 +265,22 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
         }
         LoadingUI.SetProgressBar(request.downloadProgress);     //=》DOWNLOAD PROGRSS
 
-        AssetBundle ab = DownloadHandlerAssetBundle.GetContent(request);
+        AssetBundle ab = AssetBundle.LoadFromFile(path);
 
         AssetBundleManifest manifest = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
 
         string[] names = manifest.GetAllAssetBundles();
         for (int i = 0; i < names.Length; i++)
         {
-            Debug.Log(Application.streamingAssetsPath + "/AssetsBundle/" + names[i]);
-            StartCoroutine(DownLoadAssetBundle(names[i], callback));
+            Debug.Log("<color=#00D9FF>LOAD ASSETBUNDLE:" + names[i] + "</color>");
+            StartCoroutine(DownLoadAssetBundle(names[i], i,names.Length - 1, callback));
         }
     }
 
-    public IEnumerator DownLoadAssetBundle(string bundleName,Action callback = null)
+    public IEnumerator DownLoadAssetBundle(string bundleName,int index,int count,Action callback = null)
     {
 
-        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(OnlinePathUrl + OnlineConfig.assetBundleVersion + "/");
+        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(OnlinePathUrl + OnlineConfig.assetBundleVersion + "/" + bundleName);
         string path = (Application.streamingAssetsPath + "/AssetsBundle/" + bundleName);
         request.downloadHandler = new DownloadHandlerFile(path);
 
@@ -297,11 +297,42 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
             yield return null;
         }
         LoadingUI.SetProgressBar(request.downloadProgress);     //=》DOWNLOAD PROGRSS
-        byte[] bytes = request.downloadHandler.data;
 
-        if (callback != null)
+        if (callback != null && index == count)
         {
             callback();
         }
+    }
+
+    public bool CheckAssetsBundle()
+    {
+        string path = (Application.streamingAssetsPath + "/AssetsBundle/" + "AssetsBundle");
+
+        AssetBundle ab = AssetBundle.LoadFromFile(path);
+
+        AssetBundleManifest manifest = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+
+        string[] names = manifest.GetAllAssetBundles();
+        for (int i = 0; i < names.Length; i++)
+        {
+            if (Directory.Exists(PathUrl))
+            {
+                DirectoryInfo direction = new DirectoryInfo(PathUrl);
+                FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
+                for (int j = 0; j < files.Length; j++)
+                {
+                    if (files[j].Name.EndsWith(".meta"))
+                    {
+                        continue;
+                    }
+                    if (names[i] == files[i].Name)
+                    {
+
+                    }
+                }
+            }
+        }
+        
+        return false;
     }
 }

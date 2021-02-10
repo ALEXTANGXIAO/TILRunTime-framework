@@ -135,12 +135,12 @@ public class GameLanch : UnitySingleton<GameLanch>
             unityWebRequest.Dispose();
         }
         //----------------------------------------------------加载Game------------------------------------------------------------------//
-        ILRunTimeManager.Instance.LoadHotFixAssembly(dll, null);
+        //ILRunTimeManager.Instance.LoadHotFixAssembly(dll, null);
 
-        ILRunTimeManager.Instance.EnterGame();
+        //ILRunTimeManager.Instance.EnterGame();
         //----------------------------------------------------End-----------------------------------------------------------------------//
 
-        //StartCoroutine(AssetBundleManager.Instance.DownLoadMainAssetBundel(() => {this.LoadGame(dll);}));
+        StartCoroutine(AssetBundleManager.Instance.DownLoadMainAssetBundel(() => {this.LoadGame(dll);}));
 
         yield break;
     }
