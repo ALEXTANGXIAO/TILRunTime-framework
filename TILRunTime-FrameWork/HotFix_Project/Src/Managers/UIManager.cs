@@ -17,7 +17,7 @@ namespace HotFix_Project
         public void ShowUI(string url)
         {
             string path = "UI/" + url + ".prefab";
-            GameObject uiPrefab = ResMgr.Instance.GetAssetCache<GameObject>(path);
+            GameObject uiPrefab = ResourceManagr.Instance.GetAssetCache<GameObject>(path);
             GameObject uiView = GameObject.Instantiate(uiPrefab);
             uiView.transform.SetParent(this.canvas.transform, false);
             uiView.name = uiPrefab.name;

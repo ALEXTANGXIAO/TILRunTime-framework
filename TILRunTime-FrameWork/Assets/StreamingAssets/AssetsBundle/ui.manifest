@@ -1,46 +1,30 @@
 ManifestFileVersion: 0
-CRC: 6792088
+CRC: 2140851260
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: eea6cd1b43dbcdd9ccbf1a9c07622203
+    Hash: e74f152a0b2d9b36fac7d2af740c9bef
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 6b13660948a163ce0f55f11c7b5ef851
+    Hash: f84699563d2dd09d978bf6c2e03adf13
 HashAppended: 0
 ClassTypes:
 - Class: 1
   Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
 - Class: 21
   Script: {instanceID: 0}
-- Class: 28
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
-- Class: 74
-  Script: {instanceID: 0}
-- Class: 91
-  Script: {instanceID: 0}
-- Class: 95
-  Script: {instanceID: 0}
-- Class: 114
-  Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-- Class: 114
-  Script: {fileID: 11500000, guid: def5e52b48ea21d4698dc8b3de9b2351, type: 3}
-- Class: 115
-  Script: {instanceID: 0}
-- Class: 128
-  Script: {instanceID: 0}
-- Class: 213
-  Script: {instanceID: 0}
-- Class: 222
-  Script: {instanceID: 0}
-- Class: 224
-  Script: {instanceID: 0}
-- Class: 225
+- Class: 65
   Script: {instanceID: 0}
 Assets:
-- Assets/AssetsPackage/UI/LoadingUI.prefab
+- Assets/AssetsPackage/UI/Cube.prefab
 Dependencies: []

@@ -97,7 +97,7 @@
     <Compile Include="Assets\Scripts\Managers\AssetBundleManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ILRunTimeManager.cs" />
     <Compile Include="Assets\Scripts\Managers\PoolManager.cs" />
-    <Compile Include="Assets\Scripts\Managers\ResMgr.cs" />
+    <Compile Include="Assets\Scripts\Managers\ResourceManagr.cs" />
     <Compile Include="Assets\Scripts\OnlineConfig\OnlineConfig.cs" />
     <Compile Include="Assets\Scripts\UGUI\LoadingUI.cs" />
     <Compile Include="Assets\Scripts\Utils\Debugger.cs" />

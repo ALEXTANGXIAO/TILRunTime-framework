@@ -16,7 +16,7 @@ public class GameLanch : UnitySingleton<GameLanch>
         base.Awake();
 
         //Init初始化游戏框架 ：资源框架，网络管理，日志管理....
-        this.gameObject.AddComponent<ResMgr>();
+        this.gameObject.AddComponent<ResourceManagr>();
         this.gameObject.AddComponent<ILRunTimeManager>();
         this.gameObject.AddComponent<OnlineConfig>();
         //EndInit-FrameWork
@@ -181,7 +181,7 @@ public class GameLanch : UnitySingleton<GameLanch>
 
     private void InitLoadingUI()
     {
-        GameObject Loading = ResMgr.Instance.GetAssetCache<GameObject>("LoadingUI.prefab");
+        GameObject Loading = ResourceManagr.Instance.GetResourcesAsset<GameObject>("UI/LoadingUI");
         GameObject uiView = GameObject.Instantiate(Loading);
         uiView.transform.SetParent(GameObject.Find("UICamera/Canvas").GetComponent<Canvas>().transform, false);
         uiView.name = Loading.name;

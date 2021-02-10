@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResMgr : UnitySingleton<ResMgr>
+public class ResourceManagr : UnitySingleton<ResourceManagr>
 {
     public override void Awake()
     {
@@ -22,5 +22,17 @@ public class ResMgr : UnitySingleton<ResMgr>
         }
 #endif
         return AssetBundleManager.Instance.GetAssetCache<T>(name) as T;
+    }
+
+    /// <summary>
+    /// Resources目录下文件
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    public T GetResourcesAsset<T>(string path)where T : UnityEngine.Object
+    {
+        UnityEngine.Object target = Resources.Load<T>("Prefab/"+ path); 
+        return target as T;
     }
 }

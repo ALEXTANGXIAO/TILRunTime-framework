@@ -15,8 +15,8 @@ namespace HotFix_Project
         private void EnterGameScene()
         {
             //释放游戏地图
-            //GameObject mapPrefab = ResMgr.Instance.GetAssetCache<GameObject>("Camera");
-            //GameObject map = GameObject.Instantiate(mapPrefab);
+            GameObject mapPrefab = ResourceManagr.Instance.GetAssetCache<GameObject>("Cube.prefab");
+            GameObject map = GameObject.Instantiate(mapPrefab);
 
             //释放UI
             //UIManager.Instance.ShowUI("LoadingUI");

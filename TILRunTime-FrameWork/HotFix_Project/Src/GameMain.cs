@@ -24,7 +24,7 @@ namespace HotFix_Project
 
         public static void Update()
         {
-            //Debug.LogError("Update");
+            
         }
 
         public static void LateUpdate()

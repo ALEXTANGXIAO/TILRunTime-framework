@@ -212,7 +212,16 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
     }
     //---------------------------------------------------------------------------------------//
 
-    private string url = "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/ab/";
+    /// <summary>
+    /// AB在线地址
+    /// </summary>
+    private string OnlinePathUrl
+    {
+        get
+        {
+            return "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/ab/";
+        }
+    } 
 
     public override void Awake()
     {
@@ -224,41 +233,21 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
 //#endif
     }
 
-    public T GetAssetCache<T>(string name) where T : UnityEngine.Object
+    public T GetAssetCache<T>(string resName) where T : UnityEngine.Object
     {
-        //Debug.Log("LOAD BY ASSETSBUNDLE MANAGER");
-
-#if UNITY_ANDROID
-        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle((Application.streamingAssetsPath + "/AssetsBundle/" + OnlineConfig.codeVersion);
-#else
-        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle("file:///" + Application.streamingAssetsPath + "/AssetsBundle/" + OnlineConfig.assetBundleVersion);
-#endif
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SendWebRequest();
-
-        while (!request.isDone)
-        {
-            
-        }
-
-        byte[] bytes = request.downloadHandler.data;
-
-        //AssetBundle ab = AssetBundle.LoadFromMemory(bytes);   //官方不建议这个方法，性能比较差
-
-        FileStream stream = new FileStream(Application.streamingAssetsPath + "/AssetsBundle/ui", FileMode.OpenOrCreate, FileAccess.ReadWrite);
-        stream.Write(bytes, 0, bytes.Length);
-        AssetBundle ab = AssetBundle.LoadFromStream(stream);
-
-        GameObject obj = ab.LoadAsset<GameObject>(name);
-
-        UnityEngine.Object target = ab.LoadAsset<T>(name);
+        Debug.Log("LOAD BY ASSETSBUNDLE MANAGER" + resName);
+        var abName = "ui";
+        
+        AssetBundle ab = AssetBundle.LoadFromFile(PathUrl + abName);
+        
+        UnityEngine.Object target = ab.LoadAsset<T>(resName);
 
         return target as T;
     }
 
     public IEnumerator DownLoadMainAssetBundel(Action callback = null)
     {
-        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url + OnlineConfig.assetBundleVersion + "/AssetsBundle");
+        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(OnlinePathUrl + OnlineConfig.assetBundleVersion + "/AssetsBundle");
         string path = (Application.streamingAssetsPath + "/AssetsBundle/" + "AssetsBundle");
         request.downloadHandler = new DownloadHandlerFile(path);
 
@@ -291,7 +280,7 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
     public IEnumerator DownLoadAssetBundle(string bundleName,Action callback = null)
     {
 
-        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url + OnlineConfig.assetBundleVersion + "/");
+        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(OnlinePathUrl + OnlineConfig.assetBundleVersion + "/");
         string path = (Application.streamingAssetsPath + "/AssetsBundle/" + bundleName);
         request.downloadHandler = new DownloadHandlerFile(path);
 
