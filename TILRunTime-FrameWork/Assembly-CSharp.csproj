@@ -89,11 +89,14 @@
     <Compile Include="Assets\3rd\Samples\ILRuntime\1.6.6\Demo\Scripts\Examples\11_ValueTypeBinding\ValueTypeBindingDemo.cs" />
     <Compile Include="Assets\3rd\Samples\ILRuntime\1.6.6\Demo\Scripts\Examples\11_ValueTypeBinding\Vector2Binder.cs" />
     <Compile Include="Assets\3rd\Samples\ILRuntime\1.6.6\Demo\Scripts\Examples\11_ValueTypeBinding\Vector3Binder.cs" />
+    <Compile Include="Assets\AATEST\ABMgr.cs" />
+    <Compile Include="Assets\AATEST\ABTest.cs" />
     <Compile Include="Assets\Resources\SceneLoading\LoadingSceneManager.cs" />
     <Compile Include="Assets\Resources\SceneLoading\MMLoadScene.cs" />
     <Compile Include="Assets\Scripts\GameLanch.cs" />
     <Compile Include="Assets\Scripts\Managers\AssetBundleManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ILRunTimeManager.cs" />
+    <Compile Include="Assets\Scripts\Managers\PoolManager.cs" />
     <Compile Include="Assets\Scripts\Managers\ResMgr.cs" />
     <Compile Include="Assets\Scripts\OnlineConfig\OnlineConfig.cs" />
     <Compile Include="Assets\Scripts\UGUI\LoadingUI.cs" />
@@ -694,6 +697,10 @@
     <ProjectReference Include="HT.ModuleManager.csproj">
       <Project>{3D812D8A-0EB7-6A44-3A3C-2C5679B2BAA3}</Project>
       <Name>HT.ModuleManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.AssetBundleBrowser.Editor.csproj">
+      <Project>{DC704300-762A-DDF5-A1AD-99B52DF3C18E}</Project>
+      <Name>Unity.AssetBundleBrowser.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

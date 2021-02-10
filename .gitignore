@@ -13,6 +13,8 @@
 TILRunTime-FrameWork/Library/
 /TILRunTime-FrameWork/Library/PackageCache/
 /TILRunTime-FrameWork/Logs/
+/TILRunTime-FrameWork/Assets/AATEST/
+/TILRunTime-FrameWork/Assets/StreamingAssets/
 /Back/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored

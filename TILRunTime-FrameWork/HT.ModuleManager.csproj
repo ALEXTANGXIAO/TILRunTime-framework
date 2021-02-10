@@ -274,6 +274,9 @@
     <Reference Include="HotFix_Project">
       <HintPath>D:/UnityWorkSpace/TILRunTime-framework/TILRunTime-FrameWork/Assets/3rd/StreamingAssets/HotFix_Project.dll</HintPath>
     </Reference>
+    <Reference Include="LibGit2Sharp">
+      <HintPath>D:/UnityWorkSpace/TILRunTime-framework/TILRunTime-FrameWork/Assets/Editor/ModuleManager/Lib/LibGit2Sharp.dll</HintPath>
+    </Reference>
     <Reference Include="LitJson">
       <HintPath>D:/UnityWorkSpace/TILRunTime-framework/TILRunTime-FrameWork/Assets/Resources/Json/LitJson.dll</HintPath>
     </Reference>
@@ -285,9 +288,6 @@
     </Reference>
     <Reference Include="ILRuntime.Mono.Cecil.Pdb">
       <HintPath>D:/UnityWorkSpace/TILRunTime-framework/TILRunTime-FrameWork/Library/PackageCache/com.ourpalm.ilruntime@1.6.6/Plugins/ILRuntime.Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="LibGit2Sharp">
-      <HintPath>D:/UnityWorkSpace/TILRunTime-framework/TILRunTime-FrameWork/Assets/Editor/ModuleManager/Lib/LibGit2Sharp.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>D:/UnityWorkSpace/TILRunTime-framework/TILRunTime-FrameWork/Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>

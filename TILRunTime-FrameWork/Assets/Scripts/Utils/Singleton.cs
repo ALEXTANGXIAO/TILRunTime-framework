@@ -28,7 +28,7 @@ class Singleton<T> where T : new()
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class UnitySingleton<T> : MonoBehaviour
-where T : Component
+where T : MonoBehaviour
 {
     private static T _instance = null;
     public static T Instance
@@ -53,7 +53,44 @@ where T : Component
     public virtual void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        if(_instance == null)
+        if (_instance == null)
+        {
+            _instance = this as T;
+        }
+        else
+        {
+            GameObject.Destroy(this.gameObject);
+        }
+    }
+}
+
+/// <summary>
+/// Unity自动单例模式,自动实例化自己
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public class UnityAutoSingleton<T> : MonoBehaviour
+where T : MonoBehaviour
+{
+    private static T _instance = null;
+    public static T Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                GameObject obj = new GameObject();
+                obj.name = typeof(T).ToString();
+                _instance = obj.AddComponent<T>();
+                //obj.hideFlags = HideFlags.DontSave;
+            }
+            return _instance;
+        }
+    }
+
+    public virtual void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        if (_instance == null)
         {
             _instance = this as T;
         }

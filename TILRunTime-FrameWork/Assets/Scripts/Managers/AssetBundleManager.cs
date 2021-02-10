@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -7,6 +8,8 @@ using UnityEngine.Networking;
 public class AssetBundleManager : UnitySingleton<AssetBundleManager>
 {
     private string url = "https://hotfix-1258327636.cos.ap-guangzhou.myqcloud.com/ab/";
+
+    private Dictionary<int, AssetBundle> AssetBundleCache = new Dictionary<int, AssetBundle>();
 
     public override void Awake()
     {
