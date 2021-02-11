@@ -30,10 +30,12 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
     {
         get
         {
-#if UNITY_ANDROID
-            return "file:///" + Application.streamingAssetsPath + "/AssetsBundle/");
+#if UNITY_ANDROID && !UNITY_EDITOR
+        return Application.persistentDataPath + "/AssetsBundle/";
+#elif UNITY_IPHONE && !UNITY_EDITOR
+        return Application.dataPath + "/Raw" + "/AssetsBundle/";
 #else
-            return Application.streamingAssetsPath + "/AssetsBundle/";
+        return Application.streamingAssetsPath + "/AssetsBundle/";
 #endif
         }
     }
@@ -247,8 +249,10 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
 
     public IEnumerator DownLoadMainAssetBundel(Action callback = null)
     {
-        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(OnlinePathUrl + OnlineConfig.assetBundleVersion + "/AssetsBundle");
-        string path = (Application.streamingAssetsPath + "/AssetsBundle/" + "AssetsBundle");
+        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(OnlinePathUrl + OnlineConfig.assetBundleVersion + "/"+ MainABName);
+
+        string path = PathUrl + MainABName;
+        
         request.downloadHandler = new DownloadHandlerFile(path);
 
         yield return request.SendWebRequest();
@@ -281,7 +285,9 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
     {
 
         UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(OnlinePathUrl + OnlineConfig.assetBundleVersion + "/" + bundleName);
-        string path = (Application.streamingAssetsPath + "/AssetsBundle/" + bundleName);
+
+        string path = (PathUrl + bundleName);
+        
         request.downloadHandler = new DownloadHandlerFile(path);
 
         yield return request.SendWebRequest();
@@ -306,7 +312,7 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
 
     public bool CheckAssetsBundle()
     {
-        string path = (Application.streamingAssetsPath + "/AssetsBundle/" + "AssetsBundle");
+        string path = PathUrl + MainABName;
 
         AssetBundle ab = AssetBundle.LoadFromFile(path);
 

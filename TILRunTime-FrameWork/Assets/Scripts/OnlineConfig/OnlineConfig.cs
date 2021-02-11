@@ -35,7 +35,7 @@ public class OnlineConfig :UnitySingleton<OnlineConfig>
         }
         else
         {
-            //Debug.Log(unityWebRequest.downloadHandler.text);
+            Debug.Log(unityWebRequest.downloadHandler.text);
             OnlineParamString = unityWebRequest.downloadHandler.text;
             JsonData jsonData = JsonMapper.ToObject(OnlineParamString);
             if (jsonData != null)
