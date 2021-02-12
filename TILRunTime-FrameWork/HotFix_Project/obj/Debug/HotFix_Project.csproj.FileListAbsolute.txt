@@ -26,3 +26,9 @@ D:\UnityWorkSpace\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\D
 D:\UnityWorkSpace\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.dll
 D:\UnityWorkSpace\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.pdb
 D:\UnityWorkSpace\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.csprojAssemblyReference.cache
+E:\UnityWorkSpace\TILRunTime-framework\TILRunTime-FrameWork\Assets\StreamingAssets\Hotfix\HotFix_Project.dll
+E:\UnityWorkSpace\TILRunTime-framework\TILRunTime-FrameWork\Assets\StreamingAssets\Hotfix\HotFix_Project.pdb
+E:\UnityWorkSpace\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.csprojAssemblyReference.cache
+E:\UnityWorkSpace\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.csproj.CoreCompileInputs.cache
+E:\UnityWorkSpace\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.dll
+E:\UnityWorkSpace\TILRunTime-framework\TILRunTime-FrameWork\HotFix_Project\obj\Debug\HotFix_Project.pdb

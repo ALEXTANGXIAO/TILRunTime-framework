@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LoadingUI : MonoBehaviour
+public class LoadingUI : UnitySingleton<LoadingUI>
 {
     [Header("GameObjects")]
     public Text LoadingText;

@@ -13,6 +13,7 @@ namespace HotFix_Project
             //End
 
             //EnterGame
+            LoadingUI.Instance.SetActive(false);
             UIManager.Instance.Init();
             GameApp.Instance.Init();
         }

@@ -16,7 +16,7 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
     /// <summary>
     /// 依赖包获取用的配置文件
     /// </summary>
-    private AssetBundleManifest manifest = null;
+    private AssetBundleManifest maniFest = null;
 
     /// <summary>
     /// 数据容器，用字典来存储AB包
@@ -60,11 +60,11 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
         if (mainAB == null)
         {
             mainAB = AssetBundle.LoadFromFile(PathUrl + MainABName);
-            manifest = mainAB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+            maniFest = mainAB.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
         }
-        
+
         AssetBundle ab;
-        string[] strs = manifest.GetAllDependencies(abName);
+        string[] strs = maniFest.GetAllDependencies(abName);
         for (int i = 0; i < strs.Length; i++)
         {
             if (!abDic.ContainsKey(strs[i]))
@@ -210,7 +210,7 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
         AssetBundle.UnloadAllAssetBundles(false);
         abDic.Clear();
         mainAB = null;
-        manifest = null;
+        maniFest = null;
     }
     //---------------------------------------------------------------------------------------//
 
@@ -237,12 +237,13 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
 
     public T GetAssetCache<T>(string resName) where T : UnityEngine.Object
     {
-        Debug.Log("LOAD BY ASSETSBUNDLE MANAGER:" + resName);
+        Debug.Log("<color=#D959B9>LOAD BY ASSETSBUNDLE MANAGER:" + resName + "</color>");
+
         var abName = "ui";
-        
-        AssetBundle ab = AssetBundle.LoadFromFile(PathUrl + abName);
-        
-        UnityEngine.Object target = ab.LoadAsset<T>(resName);
+
+        //AssetBundle ab = AssetBundle.LoadFromFile(PathUrl + abName);
+
+        UnityEngine.Object target = GetAssetCache<T>(abName,resName);   //ab.LoadAsset<T>(resName);
 
         return target as T;
     }
@@ -269,20 +270,36 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
         }
         LoadingUI.SetProgressBar(request.downloadProgress);     //=》DOWNLOAD PROGRSS
 
-        AssetBundle ab = AssetBundle.LoadFromFile(path);
+        AssetBundle ab = AssetBundle.LoadFromFile(path); 
 
         AssetBundleManifest manifest = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+
+        mainAB = ab;
+
+        maniFest = manifest;
 
         string[] names = manifest.GetAllAssetBundles();
         for (int i = 0; i < names.Length; i++)
         {
-            Debug.Log("<color=#00D9FF>LOAD ASSETBUNDLE:" + names[i] + "</color>");
+            //Debug.Log("<color=#00D9FF>LOAD ASSETBUNDLE:" + names[i] + "</color>");
             StartCoroutine(DownLoadAssetBundle(names[i], i,names.Length - 1, callback));
         }
     }
 
     public IEnumerator DownLoadAssetBundle(string bundleName,int index,int count,Action callback = null)
     {
+        //检查AssetBundle
+        if (CheckAssetsBundle(bundleName))
+        {
+            Debug.Log("<color=#00D9FF>LOAD ASSETBUNDLE(加载):" + bundleName + "</color>");
+            if (callback != null && index == count)
+            {
+                callback();
+            }
+            yield break;
+        }
+
+        Debug.Log("<color=#00D9FF>DOWNLOAD ASSETBUNDLE(下载):" + bundleName + "</color>");
 
         UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(OnlinePathUrl + OnlineConfig.assetBundleVersion + "/" + bundleName);
 
@@ -310,35 +327,29 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
         }
     }
 
-    public bool CheckAssetsBundle()
+    /// <summary>
+    /// 检查是否存在Assetbundle
+    /// </summary>
+    /// <param name="bundleName"></param>
+    /// <returns></returns>
+    public bool CheckAssetsBundle(string bundleName)
     {
-        string path = PathUrl + MainABName;
-
-        AssetBundle ab = AssetBundle.LoadFromFile(path);
-
-        AssetBundleManifest manifest = ab.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
-
-        string[] names = manifest.GetAllAssetBundles();
-        for (int i = 0; i < names.Length; i++)
+        if (Directory.Exists(PathUrl))
         {
-            if (Directory.Exists(PathUrl))
+            DirectoryInfo direction = new DirectoryInfo(PathUrl);
+            FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
+            for (int i = 0; i < files.Length; i++)
             {
-                DirectoryInfo direction = new DirectoryInfo(PathUrl);
-                FileInfo[] files = direction.GetFiles("*", SearchOption.AllDirectories);
-                for (int j = 0; j < files.Length; j++)
+                if (files[i].Name.EndsWith(".meta"))
                 {
-                    if (files[j].Name.EndsWith(".meta"))
-                    {
-                        continue;
-                    }
-                    if (names[i] == files[i].Name)
-                    {
-
-                    }
+                    continue;
+                }
+                if (bundleName == files[i].Name)
+                {
+                    return true;
                 }
             }
         }
-        
         return false;
     }
 }
