@@ -153,7 +153,7 @@ public class GameLanch : UnitySingleton<GameLanch>
         //ILRunTimeManager.Instance.EnterGame();
         //----------------------------------------------------End-----------------------------------------------------------------------//
 
-        StartCoroutine(AssetBundleManager.Instance.DownLoadMainAssetBundel(() => {this.LoadGame(dll);}));
+        StartCoroutine(AssetBundleManager.Instance.LoadMainAssetBundel(() => {this.LoadGame(dll);}));
 
         yield break;
     }

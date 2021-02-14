@@ -248,7 +248,7 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
         return target as T;
     }
 
-    public IEnumerator DownLoadMainAssetBundel(Action callback = null)
+    public IEnumerator LoadMainAssetBundel(Action callback = null)
     {
         UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(OnlinePathUrl + OnlineConfig.assetBundleVersion + "/"+ MainABName);
 
