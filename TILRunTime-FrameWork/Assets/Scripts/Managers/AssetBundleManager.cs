@@ -291,7 +291,7 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
         //检查AssetBundle
         if (CheckAssetsBundle(bundleName))
         {
-            Debug.Log("<color=#00D9FF>LOAD ASSETBUNDLE(加载):" + bundleName + "</color>");
+            Debug.Log("<color=#00D9FF>LOAD ASSETBUNDLE(AB版本正确，加载):" + bundleName + "</color>");
             if (callback != null && index == count)
             {
                 callback();
@@ -299,7 +299,7 @@ public class AssetBundleManager : UnitySingleton<AssetBundleManager>
             yield break;
         }
 
-        Debug.Log("<color=#00D9FF>DOWNLOAD ASSETBUNDLE(下载):" + bundleName + "</color>");
+        Debug.Log("<color=#00D9FF>DOWNLOAD ASSETBUNDLE(AB版本非正确，下载):" + bundleName + "</color>");
 
         UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(OnlinePathUrl + OnlineConfig.assetBundleVersion + "/" + bundleName);
 
