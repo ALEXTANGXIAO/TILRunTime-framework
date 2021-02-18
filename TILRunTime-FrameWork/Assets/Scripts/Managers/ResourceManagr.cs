@@ -10,7 +10,7 @@ public class ResourceManagr : UnitySingleton<ResourceManagr>
         this.gameObject.AddComponent<AssetBundleManager>();
     }
 
-    public T GetAssetCache<T>(string name)where T : UnityEngine.Object
+    public T GetAssetCache<T>(string name,string parentTrans = null) where T : UnityEngine.Object
     {
 #if UNITY_EDITOR
         if(GameLanch.Instance.IsEditorMode)

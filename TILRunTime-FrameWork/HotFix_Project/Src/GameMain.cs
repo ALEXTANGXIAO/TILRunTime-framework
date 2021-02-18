@@ -13,13 +13,14 @@ namespace HotFix_Project
             GameTime.StartFrame();
             GameEvent.Init();
             GameApp.Instance.Init();
-
-            LoadingUI.Instance.SetActive(false);
             UIManager.Instance.Init();
             //End
 
             //EnterGame
+            LoadingUI.Instance.SetActive(false);
 
+            GameObject mapPrefab = ResourceManagr.Instance.GetAssetCache<GameObject>("Cube.prefab");
+            GameObject map = GameObject.Instantiate(mapPrefab);
         }
 
         public static void Start()
