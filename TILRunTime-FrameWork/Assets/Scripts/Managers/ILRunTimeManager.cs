@@ -88,6 +88,14 @@ public class ILRunTimeManager : UnitySingleton<ILRunTimeManager>
         appdomain.Invoke("HotFix_Project.GameMain", "Init", null, null);
     }
 
+    public void Start()
+    {
+        if (isGameStart)
+        {
+            appdomain.Invoke("HotFix_Project.GameMain", "Start", null, null);
+        }
+    }
+
     private void Update()
     {
         if (isGameStart)
@@ -109,6 +117,14 @@ public class ILRunTimeManager : UnitySingleton<ILRunTimeManager>
         if (isGameStart)
         {
             appdomain.Invoke("HotFix_Project.GameMain", "FixedUpdate", null, null);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (isGameStart)
+        {
+            appdomain.Invoke("HotFix_Project.GameMain", "Destroy", null, null);
         }
     }
 }

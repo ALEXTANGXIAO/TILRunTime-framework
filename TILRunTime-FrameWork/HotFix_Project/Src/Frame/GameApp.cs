@@ -7,7 +7,7 @@ namespace HotFix_Project
     {
         private List<ILogicSys> m_listLogicMgr;
 
-        protected bool AddLogicSys(ILogicSys logicSys)
+        public bool AddLogicSys(ILogicSys logicSys)
         {
             //判断是否存在
 

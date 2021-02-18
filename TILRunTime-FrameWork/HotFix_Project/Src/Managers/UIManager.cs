@@ -27,5 +27,20 @@ namespace HotFix_Project
         {
             
         }
+
+        public void Create()
+        {
+
+        }
+
+        public void Update()
+        {
+
+        }
+
+        public void LateUpdate()
+        {
+
+        }
     }
 }

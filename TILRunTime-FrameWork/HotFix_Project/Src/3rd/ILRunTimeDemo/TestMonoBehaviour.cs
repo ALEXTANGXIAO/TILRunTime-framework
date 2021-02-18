@@ -34,8 +34,8 @@ namespace HotFix_Project
 
     class SomeMonoBehaviour2 : MonoBehaviour
     {
-        public GameObject TargetGO;
-        public Texture2D Texture;
+        //public GameObject TargetGO;
+        //public Texture2D Texture;
         public void Test2()
         {
             Debug.Log("!!! SomeMonoBehaviour2.Test2");

@@ -669,3 +669,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsEditorMode: 0
+  IsPDB_DebugMode: 0

@@ -10,33 +10,58 @@ namespace HotFix_Project
         {
             Debug.LogError("Init bversion Successfully");
             //初始化热更项目框架：自定义事件，事件通知
+            GameTime.StartFrame();
+            GameEvent.Init();
+            GameApp.Instance.Init();
+
+            LoadingUI.Instance.SetActive(false);
+            UIManager.Instance.Init();
             //End
 
             //EnterGame
-            LoadingUI.Instance.SetActive(false);
-            UIManager.Instance.Init();
-            GameEvent.Init();
-            GameApp.Instance.Init();
+
         }
 
         public static void Start()
         {
-            
+            GameTime.StartFrame();
+            GameApp.Instance.Start();
         }
 
         public static void Update()
         {
-            
+            GameTime.StartFrame();
+            GameApp.Instance.Update();
         }
 
         public static void LateUpdate()
         {
-
+            GameTime.StartFrame();
+            GameApp.Instance.LateUpdate();
         }
 
         public static void FixedUpdate()
         {
 
+        }
+
+        public static void Destroy()
+        {
+            GameTime.StartFrame();
+            GameApp.Instance.Destroy();
+        }
+
+        public static void OnApplicationPause(bool isPause)
+        {
+            GameTime.StartFrame();
+            if (isPause)
+            {
+                GameApp.Instance.OnPause();
+            }
+            else
+            {
+                GameApp.Instance.OnResume();
+            }
         }
     }
 }

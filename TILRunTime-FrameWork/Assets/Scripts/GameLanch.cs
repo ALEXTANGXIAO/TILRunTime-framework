@@ -25,6 +25,8 @@ public class GameLanch : UnitySingleton<GameLanch>
 
     public bool IsEditorMode;
 
+    public bool IsPDB_DebugMode;
+
     public override void Awake()
     {
         base.Awake();
@@ -50,7 +52,7 @@ public class GameLanch : UnitySingleton<GameLanch>
     {
         UnityWebRequest unityWebRequest;
         byte[] dll;
-        byte[] pdb;
+        byte[] pdb = null;
         
         if (!Checkdll(OnlineConfig.codeVersion))
         {
@@ -91,20 +93,24 @@ public class GameLanch : UnitySingleton<GameLanch>
             //-----------------------------------------------------------------------------------------------------------------------//
             //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
 
-            //unityWebRequest = new UnityWebRequest(url + "HotFix_Project.pdb");
+            if (IsPDB_DebugMode)
+            {
+                Debug.LogError("<color=#FF0000>PDB调试模式</color>");
+                unityWebRequest = new UnityWebRequest(url + "HotFix_Project.pdb");
 
-            //unityWebRequest = new UnityWebRequest(PathUrl +"HotFix_Project.pdb");
+                unityWebRequest = new UnityWebRequest(PathUrl + "HotFix_Project.pdb");
 
-            //unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+                unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
 
-            //yield return unityWebRequest.SendWebRequest();
-            //while (!unityWebRequest.isDone)
-            //    yield return null;
-            //if (!string.IsNullOrEmpty(unityWebRequest.error))
-            //    UnityEngine.Debug.LogError(unityWebRequest.error);
-            //pdb = unityWebRequest.downloadHandler.data;
+                yield return unityWebRequest.SendWebRequest();
+                while (!unityWebRequest.isDone)
+                    yield return null;
+                if (!string.IsNullOrEmpty(unityWebRequest.error))
+                    UnityEngine.Debug.LogError(unityWebRequest.error);
+                pdb = unityWebRequest.downloadHandler.data;
 
-            //unityWebRequest.Dispose();
+                unityWebRequest.Dispose();
+            }
         }
         else
         {
@@ -130,21 +136,25 @@ public class GameLanch : UnitySingleton<GameLanch>
             //----------------------------------------------------加载PDB-------------------------------------------------------------------//
             //PDB文件是调试数据库，如需要在日志中显示报错的行号，则必须提供PDB文件，不过由于会额外耗用内存，正式发布时请将PDB去掉，下面LoadAssembly的时候pdb传null即可
 
-            //unityWebRequest = new UnityWebRequest(PathUrl + "HotFix_Project.pdb");
+            if (IsPDB_DebugMode)
+            {
+                Debug.LogError("<color=#FF0000>PDB调试模式</color>");
+                unityWebRequest = new UnityWebRequest(PathUrl + "HotFix_Project.pdb");
 
-            //unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
+                unityWebRequest.downloadHandler = new DownloadHandlerBuffer();
 
-            //yield return unityWebRequest.SendWebRequest();
+                yield return unityWebRequest.SendWebRequest();
 
-            //while (!unityWebRequest.isDone)
-            //    yield return null;
+                while (!unityWebRequest.isDone)
+                    yield return null;
 
-            //if (!string.IsNullOrEmpty(unityWebRequest.error))
-            //    UnityEngine.Debug.LogError(unityWebRequest.error);
+                if (!string.IsNullOrEmpty(unityWebRequest.error))
+                    UnityEngine.Debug.LogError(unityWebRequest.error);
 
-            //pdb = unityWebRequest.downloadHandler.data;
+                pdb = unityWebRequest.downloadHandler.data;
 
-            //unityWebRequest.Dispose();
+                unityWebRequest.Dispose();
+            }
         }
 
         //----------------------------------------------------加载Game------------------------------------------------------------------//
@@ -153,15 +163,15 @@ public class GameLanch : UnitySingleton<GameLanch>
         //ILRunTimeManager.Instance.EnterGame();
         //----------------------------------------------------End-----------------------------------------------------------------------//
 
-        StartCoroutine(AssetBundleManager.Instance.LoadMainAssetBundel(() => {this.LoadGame(dll);}));
+        StartCoroutine(AssetBundleManager.Instance.LoadMainAssetBundel(() => {this.LoadGame(dll, pdb);}));
 
         yield break;
     }
 
-    private void LoadGame(byte[] dll)
+    private void LoadGame(byte[] dll,byte[] pdb)
     {
         //----------------------------------------------------加载Game------------------------------------------------------------------//
-        ILRunTimeManager.Instance.LoadHotFixAssembly(dll, null);
+        ILRunTimeManager.Instance.LoadHotFixAssembly(dll, pdb);
 
         ILRunTimeManager.Instance.EnterGame();
         //----------------------------------------------------End-----------------------------------------------------------------------//
