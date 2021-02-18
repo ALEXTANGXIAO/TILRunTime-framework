@@ -15,6 +15,7 @@ namespace HotFix_Project
             //EnterGame
             LoadingUI.Instance.SetActive(false);
             UIManager.Instance.Init();
+            GameEvent.Init();
             GameApp.Instance.Init();
         }
 

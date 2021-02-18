@@ -5,7 +5,7 @@ using ILRuntime.Runtime.Enviorment;
 
 public class ILRunTimeManager : UnitySingleton<ILRunTimeManager>
 {
-    public bool isGameStart = false;
+    private bool isGameStart = false;
     AppDomain appdomain; //ILRunTime=>解释执行虚拟机
     System.IO.MemoryStream fs;
     System.IO.MemoryStream p;
