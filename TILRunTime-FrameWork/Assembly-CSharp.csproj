@@ -92,6 +92,7 @@
     <Compile Include="Assets\3rd\Samples\ILRuntime\1.6.6\Demo\Scripts\Examples\11_ValueTypeBinding\Vector3Binder.cs" />
     <Compile Include="Assets\AATEST\ABMgr.cs" />
     <Compile Include="Assets\AATEST\ABTest.cs" />
+    <Compile Include="Assets\AATEST\Message.cs" />
     <Compile Include="Assets\Resources\SceneLoading\LoadingSceneManager.cs" />
     <Compile Include="Assets\Resources\SceneLoading\MMLoadScene.cs" />
     <Compile Include="Assets\Scripts\GameLanch.cs" />

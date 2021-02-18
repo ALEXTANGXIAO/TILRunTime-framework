@@ -34,6 +34,7 @@ public class Debugger : MonoBehaviour
 
     private void Start () 
     {
+        DontDestroyOnLoad(this.gameObject);
         if (AllowDebugging)
         {
             Application.logMessageReceived += LogHandler;
